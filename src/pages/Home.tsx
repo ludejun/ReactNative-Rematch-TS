@@ -11,7 +11,7 @@ const instructions = Platform.select({
 type Props = {};
 
 function Home(props) {
-  const { isAuth, isLogining, userInfo, fetchLogin } = props;
+  const { isAuth, isLogining, userInfo, fetchLogin, navigation } = props;
   const onLoginClick = () => {
     fetchLogin &&
       fetchLogin({
@@ -25,18 +25,23 @@ function Home(props) {
       });
   };
 
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-        <View style={styles.reduxSample}>
-          <Button title="登陆" onPress={onLoginClick} />
-          {isLogining && <Text style={styles.flexItem}> 登陆中... </Text>}
-          <Text style={styles.flexItem}>登陆状态：{isAuth ? <Text>已登陆，欢迎{userInfo.username}</Text> : <Text>您未登陆</Text>}</Text>
-        </View>
+  const onWebviewClick = () => {
+    navigation.navigate('Webview');
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.welcome}>Welcome to React Native!</Text>
+      <Text style={styles.instructions}>To get started, edit App.js</Text>
+      <Text style={styles.instructions}>{instructions}</Text>
+      <View style={styles.reduxSample}>
+        <Button title="登陆" onPress={onLoginClick} />
+        {isLogining && <Text style={styles.flexItem}> 登陆中... </Text>}
+        <Text style={styles.flexItem}>登陆状态：{isAuth ? <Text>已登陆，欢迎{userInfo.username}</Text> : <Text>您未登陆</Text>}</Text>
       </View>
-    );
+      <Button title="跳转webview" onPress={onWebviewClick} />
+    </View>
+  );
 }
 
 const mapStateToProps = ({ user }: RootState) => ({

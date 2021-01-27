@@ -6,9 +6,11 @@ yarn start / npm start
 启动ios
 npm run ios
 
+cd ios
+pod install
 
-
-
+调试
+npm install -g react-devtools
 
 npm install @react-navigation/native @react-navigation/stack
 npm install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
