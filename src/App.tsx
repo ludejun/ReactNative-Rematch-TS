@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, SafeAreaView} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
-import { SafeAreaProvider} from 'react-native-safe-area-context';
+// import { SafeAreaProvider} from 'react-native-safe-area-context';
 import Home from './pages/Home';
 import RWebView from './pages/Webview';
 
@@ -21,10 +21,10 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <SafeAreaProvider>
+    <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home" headerMode="none">
-          <Stack.Screen name="Home">
+        <Stack.Navigator initialRouteName="Home" screenOptions={{ headerBackTitle: ' ' }}>
+          <Stack.Screen name="Home" options={{ header: () => null }}>
             {() => (
               <Tab.Navigator initialRouteName="Analytics">
                 <Tab.Screen name="Home" component={Home} />
@@ -36,19 +36,9 @@ export default function App() {
           <Stack.Screen
             name="Webview"
             component={RWebView}
-            options={{
-              title: 'My Webview',
-              headerStyle: {
-                backgroundColor: '#f4511e',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </SafeAreaProvider>
+    </SafeAreaView>
   );
 }

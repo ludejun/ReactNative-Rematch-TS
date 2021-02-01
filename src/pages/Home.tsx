@@ -11,7 +11,7 @@ const instructions = Platform.select({
 type Props = {};
 
 function Home(props) {
-  const { isAuth, isLogining, userInfo, fetchLogin, navigation } = props;
+  const { isAuth, isLogining, userInfo, fetchLogin, navigation: { push } } = props;
   const onLoginClick = () => {
     fetchLogin &&
       fetchLogin({
@@ -26,7 +26,7 @@ function Home(props) {
   };
 
   const onWebviewClick = () => {
-    navigation.navigate('Webview');
+    push('Webview');
   };
 
   return (

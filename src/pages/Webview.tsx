@@ -19,8 +19,6 @@ export default class RWebview extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        
-        <View style={{height: 50}}><Text>webview</Text></View>
         <WebView
           source={{
             // uri: 'http://localhost:7000/#//user/index'
