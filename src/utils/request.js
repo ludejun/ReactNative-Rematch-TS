@@ -1,16 +1,14 @@
 function parseJSON(response) {
-  return response.json();
+  return response.json()
 }
 
 // 根据后端规范三要素更改此函数代码
 function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
+  if (response.status >= 200 && response.status < 300) return response
 
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
+  const error = new Error(response.statusText)
+  error.response = response
+  throw error
 }
 
 /**
@@ -25,6 +23,6 @@ export default function request(url, options) {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)
-    .then(data => ({ data }))
-    .catch(err => ({ err }));
+    .then((data) => ({ data }))
+    .catch((err) => ({ err }))
 }

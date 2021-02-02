@@ -15,13 +15,11 @@ class HistoryStack {
       this.index = 0;
       this.stack = [loc];
     } else {
-      const index = this.stack.findIndex(v => v.hash === loc.hash);
+      const index = this.stack.findIndex(({hash}) => hash === loc.hash);
       if (index > -1) {
         this.current = this.stack[index];
         this.index = index;
-      } else {
-        throw new Error('history stack not match!');
-      }
+      } else throw new Error('history stack not match!');
     }
   }
 
