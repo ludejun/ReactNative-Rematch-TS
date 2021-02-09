@@ -15,13 +15,11 @@ function Home(props) {
   const onLoginClick = () => {
     fetchLogin &&
       fetchLogin({
-        data: {
+        params: {
           loginName: '',
           loginPwd: '***',
         },
-        cb: (userInfo: object) => {
-          // 持久化存储
-        },
+        apiName: 'login',
       });
   };
 

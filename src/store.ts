@@ -1,16 +1,26 @@
-import { init, RematchRootState, RematchRootDispatch } from '@rematch/core';
+import { init, RematchRootState } from '@rematch/core';
+import { apiConfig, ajaxPostOptions, ajaxGetOptions } from './configs/api';
+import request from './utils/request';
+import { wrapperRequest } from './middleware/wrapperRequest';
 import * as models from './models';
 
-// interface Store {
-//   count?: number
-// }
+const promiseMiddlewareConfig = {
+  fetch: request,
+  urlProc: apiName => apiConfig[apiName],
+  fetchOptionsProc: (data, header = {}, method = 'POST') =>
+    method === 'POST' ? ajaxPostOptions(data, header) : ajaxGetOptions(data, header),
+  errorCallback: () => console.log('攻城狮开小差了，请稍后重试～'),
+};
 
 const store = init({
   models,
+  redux: {
+    middlewares: [wrapperRequest.bind(null, promiseMiddlewareConfig)],
+  },
 });
 
 export default store;
 
 export type Store = typeof store;
-export type Dispatch = RematchRootDispatch<typeof models>;
+export type Dispatch = typeof store.dispatch;
 export type RootState = RematchRootState<typeof models>;

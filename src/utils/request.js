@@ -11,6 +11,23 @@ function checkStatus(response) {
   throw error
 }
 
+// 处理业务Code
+function checkoutCode(response) {
+  if (String(response[configs.successCode.key]) === configs.successCode.value) {
+    return response.data;
+  }
+  // 其他特殊业务Code处理，如登录态过期、后端报错
+
+  return response;
+}
+
+function catchError(error) {
+  console.log('catchError', error);
+  // 统一request请求报错处理，弹toast等
+
+  return Promise.reject(error);
+}
+
 /**
  * Requests a URL, returning a promise.
  *
@@ -23,6 +40,6 @@ export default function request(url, options) {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)
-    .then((data) => ({ data }))
-    .catch((err) => ({ err }))
+    .then(checkoutCode)
+    .catch(catchError);
 }
