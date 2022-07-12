@@ -1,18 +1,16 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import {Text, View, SafeAreaView} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
+// import { SafeAreaProvider} from 'react-native-safe-area-context';
 import Home from './pages/Home';
 import RWebView from './pages/Webview';
-
 
 function Demo() {
   return (
     <View
-      style={{ flex: 1, justifyContent: 'space-between', alignItems: 'center' }}
-    >
+      style={{flex: 1, justifyContent: 'space-between', alignItems: 'center'}}>
       <Text>This is top text.</Text>
       <Text>This is bottom text.</Text>
     </View>
@@ -23,10 +21,10 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <SafeAreaProvider>
+    <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home" headerMode="none">
-          <Stack.Screen name="Home">
+        <Stack.Navigator initialRouteName="Home" screenOptions={{ headerBackTitle: ' ' }}>
+          <Stack.Screen name="Home" options={{ header: () => null }}>
             {() => (
               <Tab.Navigator initialRouteName="Analytics">
                 <Tab.Screen name="Home" component={Home} />
@@ -35,16 +33,12 @@ export default function App() {
             )}
           </Stack.Screen>
 
-          <Stack.Screen name="Webview" component={RWebView} options={{
-            title: 'My Webview', headerStyle: {
-              backgroundColor: '#f4511e',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            }, }}/>
+          <Stack.Screen
+            name="Webview"
+            component={RWebView}
+          />
         </Stack.Navigator>
       </NavigationContainer>
-    </SafeAreaProvider>
+    </SafeAreaView>
   );
 }
